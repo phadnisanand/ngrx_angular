@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { increment, decrement, reset } from '../counter.actions';
+import { selectCount, selectUserData } from '../counter.selector';
+import { AppState } from '../app.state';
 
 @Component({
   selector: 'app-displaycounter',
@@ -11,10 +13,11 @@ import { increment, decrement, reset } from '../counter.actions';
   styleUrl: './displaycounter.component.css'
 })
 export class DisplaycounterComponent {
-  count$: Observable<number>;
-
-  constructor(private store: Store<{ count: number }>) {
-    this.count$ = store.select('count');
+ count$: Observable<number> = new Observable<number>;
+ userData$: Observable<string> = new Observable<string>;
+ constructor(private store: Store<AppState>) {
+   this.count$ = store.select(selectCount);
+   this.userData$ = store.select(selectUserData);
   }
 
     increment() {

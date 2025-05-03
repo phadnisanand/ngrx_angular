@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { increment, decrement, reset } from '../counter.actions';
 import { AsyncPipe } from '@angular/common';
+import { AppState } from '../app.state';
+import { selectCount, selectCounterState, selectUserData } from '../counter.selector';
 
 @Component({
   selector: 'app-counter',
@@ -11,10 +13,11 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './counter.component.css'
 })
 export class CounterComponent {
-  count$: Observable<number>;
-
-  constructor(private store: Store<{ count: number }>) {
-    this.count$ = store.select('count');
+  count$: Observable<number> = new Observable<number>;
+  userData$: Observable<string> = new Observable<string>;
+  constructor(private store: Store<AppState>) {
+    this.count$ = store.select(selectCount);
+    this.userData$ = store.select(selectUserData);
   }
 
   increment() {

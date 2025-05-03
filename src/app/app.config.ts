@@ -5,5 +5,5 @@ import { provideStore } from '@ngrx/store';
 import { counterReducer } from './counter.reducer';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore({ count: counterReducer })]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore({ count: counterReducer,logUserData: counterReducer})]
 };
